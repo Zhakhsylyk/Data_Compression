@@ -1,0 +1,254 @@
+<html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            .btn {
+                float:right;
+                padding: 10px 10px 10px 36px;
+                font-family: "Poppins",Arial, Helvetica, sans-serif ;
+                background: #1b95e0 url("aitu-logo.png") 10px 10px no-repeat;
+                border-radius: 16px;
+                border: 1px solid #d9d9d9;
+            }
+            </style>
+        <title>
+            Information Theory Final Project
+        </title>
+    </head>
+    <body>
+        <button class="btn"><a class="IT" href="http://moodle.astanait.edu.kz/">Information Theory</a></button>
+        <h1>
+            Data Compression Algorithm
+        </h1>
+        <main>
+            <a class ="text" href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a> is a lossless data compression algorithm. The idea is to assign variable-length codes to input characters, lengths of the assigned codes are based on the frequencies of corresponding characters. The most frequent character gets the smallest code and the least frequent character gets the largest code.
+The variable-length codes assigned to input characters are <a class ="text" href="https://en.wikipedia.org/wiki/Prefix_code">Prefix Codes</a>, means the codes (bit sequences) are assigned in such a way that the code assigned to one character is not the prefix of code assigned to any other character. This is how Huffman Coding makes sure that there is no ambiguity when decoding the generated bitstream. 
+Let us understand prefix codes with a counter example. Let there be four characters a, b, c and d, and their corresponding variable length codes be 00, 01, 0 and 1. This coding leads to ambiguity because code assigned to c is the prefix of codes assigned to a and b. If the compressed bit stream is 0001, the de-compressed output may be “cccd” or “ccb” or “acd” or “ab”.
+        </main>
+        <div style="width:100%;">
+            <p class="text-underline">Henceforth is compressor that provides Huffman encoding and decoding </p>
+            <div class="encode">
+                <form action="hamming.html">
+                    <h2>Huffman Encode</h2>
+                    <label for="inputText">Enter Text:</label>
+                    <textarea class="encodingText" rows="4" cols="50" placeholder="Text Encode"></textarea>
+                    <button type="button" class="btn-encode" onclick="myClick()">Encode</button>
+                    <p id="ratioOutput">Compression ratio</p>
+                    <label for="output" class="output">Output:</label>
+                    <textarea id="encodingTextOutput" rows="4" cols="50"></textarea>       
+                    <script>
+                        document.getElementsByClassName('.btn-encode').onclick = myClick;
+                        class Node{
+        constructor(value, char, left, right) {
+            this.value =value;
+            this.char = char;
+            this.left = left;
+            this.right = right;
+        }
+    }
+    
+    // var fileSystem = require('fs'); 
+    
+    // var text = fileSystem.readFileSync('hah.txt','utf8');
+     
+    
+    function Tree(text){
+        var count = new Object();
+    
+        for(let i in text){
+            if(count[text[i]] == undefined){
+                count[text[i]] = 0;
+            }
+            count[text[i]]++;
+        }
+        for (let i in count){
+            count[i] = (count[i]/text.length);
+        }
+    
+        // console.log(count);
+        this.count = count;
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    function getTree(){
+        var arr = new Array();
+        for (let i in this.count){
+            let node = new Node(count[i], i);
+            arr.push(node);
+        }
+    
+        var Nodes = new Array();
+    
+        while(arr.length !== 1){
+           arr.sort(function(a,b) {
+               return a.value - b.value;
+           });
+           let node = new Node(arr[0].value + arr[1].value);
+           Nodes.push(arr[0]);
+           Nodes.push(arr[1]);
+           node.left = Nodes[Nodes.length -2];
+           node.right = Nodes[Nodes.length -1];
+           arr = arr.slice(2);
+           arr.push(node);
+        }
+        return arr[0];
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    function TraversalCode(tree){
+        let code = new Object();
+        let traverseTree = (node,nodePath) => {
+            if(node.left){
+            traverseTree(node.left, nodePath + '0');
+            }
+            if(node.right){
+                traverseTree(node.right,nodePath + '1');
+            }
+            if (node.left && !node.left.left && !node.left.right){
+                code[node.left.char] = nodePath + '0';
+              }
+            if (node.right && !node.right.left && !node.right.right){
+                code[node.right.char] = nodePath + '1';
+             }
+        };
+        traverseTree(tree, '');
+        return code;
+    }
+    function passValue(){
+        var textvalue = document.getElementsByClassName('.encodingText').value;
+        localStorage.setItem("textvalue",textvalue);
+
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function Encode(charCode, text){
+        var output = '';
+        for (let i = 0; i<text.length; i++){
+            output= output  + charCode[text[i]];
+        }
+        return output;
+    }
+                            var encodedtext = "";
+                            var textToPass="";
+                            function myClick() {
+                                let text = document.querySelector('.encodingText').value;
+                                console.log(text);
+                                passValue();
+                                textToPass = text;
+                                var charCode = TraversalCode(getTree(Tree(text)));
+        var encoded = Encode(charCode,text);
+        encodedtext = encoded;
+        document.getElementById("encodingTextOutput").value = encoded;
+        var ratio = ((8 * text.length)/encoded.length);
+        document.getElementById("ratioOutput").innerHTML = ratio;
+        console.log(encoded);
+        sessionStorage.setItem("textToPass", textToPass);
+         }</script>
+                </form>
+            </div>
+            <div class="vertical-line">
+            </div>
+            <div class="decode">
+                <form>
+                    <h2>Huffman Decode</h2>
+                    <label for="inputText">Enter Text:</label>
+                    <textarea placeholder="Encoded text Decode" id="decodingText" rows="4" cols="50"></textarea>
+                    <button type="button" class="btn-decode" onclick="myClickSecond()">Decode</button>
+                    <label for="output" class="output">Output:</label>
+                    <textarea id="decodingTextOutput" rows="4" cols="50"></textarea>
+    <script>document.getElementsByClassName('.btn-decode').onclick = myClickSecond;
+   
+
+function getTree(){
+    var arr = new Array();
+    for (let i in this.count){
+        let node = new Node(count[i], i);
+        arr.push(node);
+    }
+
+    var Nodes = new Array();
+
+    while(arr.length !== 1){
+       arr.sort(function(a,b) {
+           return a.value - b.value;
+       });
+       let node = new Node(arr[0].value + arr[1].value);
+       Nodes.push(arr[0]);
+       Nodes.push(arr[1]);
+       node.left = Nodes[Nodes.length -2];
+       node.right = Nodes[Nodes.length -1];
+       arr = arr.slice(2);
+       arr.push(node);
+    }
+    return arr[0];
+}
+   function Decode(encoded,root){
+    let current = root;
+    let output = '';
+    for (let i in encoded){
+        current = (encoded[i] == '0') ? current = current.left : current = current.right
+        if(!current.left && !current.right){
+           output+= current.char;
+           current = root;
+        }
+    }
+    return output;
+}
+
+// console.log(decoding);
+
+        function myClickSecond() {
+            //console.log('work');
+            // get input
+            // input - value
+            let encoded = document.getElementById('decodingText').value;
+            
+            console.log(encoded);
+            var decoded = Decode(encoded,getTree());
+
+            document.getElementById("decodingTextOutput").value = decoded;
+            console.log(decoded);
+        }</script>
+                </form>
+            </div>
+            <div class="side-bar">
+                    <h3 class="title-nav">Other Algorithms</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a class="link-compressor" href="hamming.html">Hamming Codes Error-Correction</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="link-compressor" href="des.html">Data Encryption Standard</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+     <section>
+         <hr style="border:1px solid #1E2022">
+       <div id="figure1">
+         <h4>Figure 1.</h4>
+         <img src="huffman_tree.png" alt="huffman_tree"  width="600px" style="margin-left:50px">
+        </div>
+        <p class="info-figure"><span class="numbers">1.</span>Create a leaf node for each unique character and build a min heap of all leaf nodes (Min Heap is used as a priority queue. The value of frequency field is used to compare two nodes in min heap. Initially, the least frequent character is at root)
+            <span class="numbers">2.</span>Extract two nodes with the minimum frequency from the min heap.  
+            <span class="numbers">3.</span>Create a new internal node with a frequency equal to the sum of the two nodes frequencies. Make the first extracted node as its left child and the other extracted node as its right child. Add this node to the min heap.
+            <span class="numbers">4.</span>Repeat steps#2 and #3 until the heap contains only one node. The remaining node is the root node and the tree is complete.
+            Traverse the tree formed starting from the root. Maintain an auxiliary array. While moving to the left child, write 0 to the array. While moving to the right child, write 1 to the array. Print the array when a leaf node is encountered.
+        </p>
+        <hr style="border:1px solid #1E2022">
+        <div id="figure2">
+         <h4>Figure 2.</h4>
+         <img src="huffman_exp.gif" alt="huffman_exp"  width="600px">
+        </div>
+        <p class="info-figure">Example Encoding Table shows main function of Huffman coding. Firstly, we find probabilities of each character and like previous figure building our Tree and traversing it.
+             Consequently, we get binary sequence of encoded text, and after that, to obtain our text we should decode binary sequence.As you see from <span class="markedText">Figure 2</span>,
+             each letter has own bit code , 0 and 1 bits are building by path of node left and right respectively.</p>
+     </section>
+    <footer>
+
+    </footer>
+    </body>
+</html>

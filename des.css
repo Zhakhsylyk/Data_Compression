@@ -1,0 +1,133 @@
+
+*{
+    font-family: "Poppins",Arial, Helvetica, sans-serif ;
+}
+a{
+    text-decoration: none;
+    color: #1E2022;
+    font-family: "Poppins",Arial, Helvetica, sans-serif ;
+
+}
+a.IT{
+    color:white;
+    text-decoration: none;
+    margin-left:10px;
+}
+img{
+    display: inline;
+}
+div{
+    display: inline-block;
+}
+.side-bar{
+    position:sticky;
+    text-align: left;
+    right: 0; 
+    top: 1%; 
+    float:right;
+}
+
+.list-group-item{
+position: relative;
+display: block;
+padding: .75rem 1.25rem;
+margin-bottom: -1px;
+background-color: #fff;
+border: 1px solid rgba(0,0,0,.125);
+}
+h1{
+    font-family: "Poppins",Arial, Helvetica, sans-serif ;
+    font-size: 40px;
+    color: #1E2022;
+    padding: 0px;
+    margin:0;
+}
+main,p{
+    line-height: 1.7em;
+    font-family: "Poppins",Arial, Helvetica, sans-serif ;
+    color:#77838F;
+}
+.text{
+    color:#2380FB;
+    text-decoration: none;
+}
+.decode{
+    margin-left: 150px;
+    font-family: "Poppins",Arial, Helvetica, sans-serif ;
+    color: #1E2022;
+
+}
+.encode{
+    font-family: "Poppins",Arial, Helvetica, sans-serif ;
+    color: #1E2022;
+}
+.vertical-line{
+    width: 0px;
+	border: 1px solid #77838F;
+	height: 420px;
+	position: absolute;
+	left: 435px;
+}
+form > textarea{
+    padding:6px 6px;
+    display:block;
+
+}
+form > button{
+    background-color: #2380FB;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin: 20px 0px;
+    border-radius: 8px;
+}
+section{
+    display: block;
+    margin-top:80px;
+}
+#figure1,#figure2,#figure3{
+    border: 2px solid #77838F;
+    width:30%;
+    border-radius: 5px;
+    padding:0px;
+}
+
+section > h4{
+    margin-left: 25px;
+}
+.title-nav{
+    margin-left:40px;
+}
+.link-compressor::after{
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #77838F;
+    transition: width .3s;
+}
+
+.link-compressor:hover::after{
+    width: 100%;
+    transition: width .3s;
+}
+h3,h2{
+    color:#1E2022;
+    font-family: "Poppins",Arial, Helvetica, sans-serif ;
+}
+.text-underline{
+    text-decoration: underline;
+}
+hr{
+    border:1px solid #1E2022;
+}
+.info-figure{
+    float:right;
+    width:66%;
+}

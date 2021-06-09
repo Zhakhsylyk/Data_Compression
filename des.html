@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link rel="stylesheet" href="des.css">
+        <script src="https://cdnjs.com/libraries/crypto-js"></script>
+        <script src="des.js"></script>
+<style>
+            .btn {
+                float:right;
+                padding: 10px 10px 10px 36px;
+                font-family: "Poppins",Arial, Helvetica, sans-serif ;
+                background: #1b95e0 url("aitu-logo.png") 10px 10px no-repeat;
+                border-radius: 16px;
+                border: 1px solid #d9d9d9;
+            }
+            </style>
+        <title>
+            Information Theory Final Project
+        </title>
+    </head>
+    <body>
+        <button class="btn"><a class="IT" href="http://moodle.astanait.edu.kz/">Information Theory</a></button>
+        <h1>
+            Encryption Algorithm
+        </h1>
+        <main>
+            <a class ="text" href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a> is a lossless data compression algorithm. The idea is to assign variable-length codes to input characters, lengths of the assigned codes are based on the frequencies of corresponding characters. The most frequent character gets the smallest code and the least frequent character gets the largest code.
+The variable-length codes assigned to input characters are <a class ="text" href="https://en.wikipedia.org/wiki/Prefix_code">Prefix Codes</a>, means the codes (bit sequences) are assigned in such a way that the code assigned to one character is not the prefix of code assigned to any other character. This is how Huffman Coding makes sure that there is no ambiguity when decoding the generated bitstream. 
+Let us understand prefix codes with a counter example. Let there be four characters a, b, c and d, and their corresponding variable length codes be 00, 01, 0 and 1. This coding leads to ambiguity because code assigned to c is the prefix of codes assigned to a and b. If the compressed bit stream is 0001, the de-compressed output may be “cccd” or “ccb” or “acd” or “ab”.
+        </main>
+        <div style="width:100%;">
+            <p class="text-underline">Henceforth is compressor that provides Huffman encoding and decoding </p>
+            <div class="encode">
+                <form>
+                    <h2>DES Encode</h2>
+                    <label for="inputText">Enter Text:</label>
+                    <textarea id="encodingText" rows="4" cols="50" placeholder="Text Encode"></textarea>
+                    <button class="btn-encode" type="button" onclick="myClick()">Encode</button>
+                    <label for="output" class="output">Output:</label>
+                    <textarea id="encodingTextOutput" rows="4" cols="50"></textarea>
+    
+                </form>
+            </div>
+            <div class="vertical-line">
+            </div>
+            <div class="decode">
+                <form>
+                    <h2>DES Decode</h2>
+                    <label for="inputText">Enter Text:</label>
+                    <textarea placeholder="Encoded text Decode" id="decodingText" rows="4" cols="50"></textarea>
+                    <button class="btn-encode">Decode</button>
+                    <label for="output" class="output">Output:</label>
+                    <textarea id="decodingTextOutput" rows="4" cols="50"></textarea>
+    
+                </form>
+            </div>
+            <div class="side-bar">
+                    <h3 class="title-nav">Other Algorithms</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a class="link-compressor" href="hamming.html">Hamming Codes Error-Correction</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="link-compressor" href="index.html">Huffman Coding</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+     <section>
+         <hr>
+       <div id="figure1">
+         <h4>Figure 1.</h4>
+         <img src="des-figure1.png" class="des-figure1" alt="des-figure1"  width="300px" height="400px" style="margin-left:70px;margin-bottom: 50px;">
+        </div>
+        <p class="info-figure">Well, the first thing we do it define that it takes into my senses, respectively, its key is the BIT OF A key block is the block in the bit result is the block in the bit, respectively, we have an open text unit
+            The initial permutation is performed further and also for the future will say the final permutation of the essence occurs.
+            these permutations are not cryptographic that is
+            You can formulate these initial and finite permutations in no way depend more accurately
+            on the cryptopitude of the algorithm because they are operated on to the hardware implementation, that is, it is not more accurate in software implementation.
+            Even more minus because the speed will say that it decreases, however, if we were not implemented
+            The initial end reinstall then it could not be called the DS algorithm that is, it is why we adhere to all criteria further after the initial permutation we do more accurately share the block on the block on
+            Bit The right unit passes through the function f using the key to the output bit on the output we get a block into the bit which to
+            quarrel with the left block in the bit Next we just rearrange these blocks in places it is done in principle and then at the end stage we do we do
+            Also apply this function f Bit turns on and apply the function that we use the operation to the quarrel and now it's now the same blocks. As a result, we get two blocks on the batting became the key which
+            applied by bit here the essence is that the key should expand to to the key on the bit of this we
+            We still talk directly to how to do it well and immediately let's look at the function f </p>
+        <hr>
+        <div id="figure2">
+         <h4>Figure 2.</h4>
+         <img src="des-figure2.jpg" alt="des-figure2"   width="400px" height="400px"  style="margin-left:10px;margin-bottom: 20px;">
+        </div>
+        <p class="info-figure">The function looks like this. It takes directly the right block in the bit. Next, this bit block passes through the extension block. As a result, we get a bit block on the output. Block is folded with
+            The key bit on the module in the end we get a new block into a bit that is divided into units on bits all each under the block passes through
+           Boxing substitution As a result, it takes it as a parameter
+           Bit block at the output We get a bit block each bit block
+           We put into a new -bit block that passes through the permutation
+           Next, the result of this broken block is folded with the left bits and in
+           principle we change them in places </p>
+        <hr>
+        <div id="figure3">
+            <h4>Figure 3.</h4>
+            <img src="des-figure3.jpg" alt="des-figure3"   width="300px" height="400px"  style="margin-left:50px;margin-bottom: 20px;">
+           </div>
+           <p class="info-figure">The key is as follows. On the fact, we vds pass 64 bit blog but the whole point is that every 8 bits we do not consider in the end we get only 56 bits that is, the highlight of meaning bits Next, we must divide and 56 bit block on 2 blocks up to 28 Bit also worth saying that the selection means bits it is not just the removal of each 8 bit, and this is also a certain permutation itself
+            permutation it will only be indicated in the software implementation well
+            Accordingly, we have a block of 56 bits, it is divided into two blocks of 28 bits and now we should have 16 rounds. </p>
+     </section>
+    <footer>
+
+    </footer>
+    </body>
+</html>

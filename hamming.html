@@ -1,0 +1,392 @@
+<html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link rel="stylesheet" href="hamming.css">
+        <style>
+            .btn {
+                float:right;
+                padding: 10px 10px 10px 36px;
+                font-family: "Poppins",Arial, Helvetica, sans-serif ;
+                background: #1b95e0 url("aitu-logo.png") 10px 10px no-repeat;
+                border-radius: 16px;
+                border: 1px solid #d9d9d9;
+            }
+            </style>
+        <title>
+            Information Theory Final Project
+        </title>
+    </head>
+    <body>
+        <button class="btn"><a class="IT" href="http://moodle.astanait.edu.kz/">Information Theory</a></button>
+        <div>
+        <h1>
+            Error-Correction Algorithm
+        </h1>
+        <main>
+            <a class="text" href="https://en.wikipedia.org/wiki/Hamming_code">Hamming code</a> is a linear code that is useful for error detection up to two immediate bit errors. It is capable of single-bit errors.
+            In Hamming code, the source encodes the message by adding <a class="text" href="https://en.wikipedia.org/wiki/Parity_bit">redundant bits</a> in the message. These redundant bits are mostly inserted and generated at certain positions in the message to accomplish <a class="text" href="https://en.wikipedia.org/wiki/Error_detection_and_correction">error detection and correction</a> process.
+            <h3>Process of Encoding a message using Hamming Code</h3>
+            <ul>
+                <li>Calculation of total numbers of redundant bits.</li> 
+                <li>Checking the position of the redundant bits.</li>
+                <li>Lastly, calculating the values of these redundant bits.</li>
+            </ul>
+            <h3>Process of Decrypting a Message in Hamming code</h3>
+            <ul>
+                <li>Counting the number of redundant bits.</li> 
+                <li>Correctly positioning of all the redundant bits.</li>
+                <li> Parity check</li>
+            </ul>
+            <h3>Calculation (Parity bits and error Syndrome)</h3>
+            <p class="calculation">
+            r1 = i1 XOR i2 XOR i3 <br>
+            r2 = i2 XOR i3 XOR i4<br>
+            r3 = i1 XOR i2 XOR i4<br>
+            S1 = r1 XOR i1 XOR i2 XOR i3<br>
+            S2 = r2 XOR i2 XOR i3 XOR i4<br>
+            S3 = r3 XOR i1 XOR i2 XOR i4<br>
+            S = (s1,s2,s3)<br>
+            (r= parity bit, i = data bit, S = syndrome)
+        </p>
+        </main>
+        <p class="text-underline">Henceforth is error-correction that provides Hamming encoding and decoding </p>
+        <div class="encode">
+            <form>
+                <h2>Hamming Encode</h2>
+                <label for="inputText">Enter Text:</label>
+                <textarea id="encodingTextHamming" rows="4" cols="50" placeholder="Text Encode"></textarea>
+                <button type="button" class="btn-encode-hamming" onclick="MyClickHamming()">Encode</button>
+                <label for="output" class="output">Output:</label>
+                <textarea id="encodingTextOutputHamming" rows="4" cols="50"></textarea>
+
+            </form>
+        </div>
+        <div class="vertical-line">
+        </div>
+        <div class="decode">
+            <form>
+                <h2>Error Generator</h2>
+                <label for="inputText">Enter Text:</label>
+                <textarea placeholder="Binary sequence with errors" id="encodingTextError" rows="4" cols="50"></textarea>
+                <button type="button" class="btn-error-hamming" onclick="HammingErrors()">Genearate</button>
+                <label for="output" class="output">Output:</label>
+                <textarea id="decodingTextOutputErrors" rows="4" cols="50" placeholder="Binary sequence without errors"></textarea>
+
+            </form>
+        </div>
+        <div class="vertical-line2">
+        </div>
+        <div class="decode">
+            <form>
+                <h2>Error Detection and Correction</h2>
+                <label for="inputText">Enter Text:</label>
+                <textarea placeholder="Encoded text Decode" id="decodingText" rows="4" cols="50"></textarea>
+                <button type="button" class="btn-decode-hamming" onclick="HammingDecode()">Decode</button>
+                <label for="output" class="output">Output:</label>
+                <textarea id="decodingTextOutputHamming" rows="4" cols="50"></textarea>
+                <script>
+                document.getElementsByClassName('.btn-encode-hamming').onclick = MyClickHamming;
+
+                class Node{
+    constructor(value, char, left, right) {
+        this.value =value;
+        this.char = char;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+ function Tree(text){
+    var count = new Object();
+
+    for(let i in text){
+        if(count[text[i]] == undefined){
+            count[text[i]] = 0;
+        }
+        count[text[i]]++;
+    }
+    for (let i in count){
+        count[i] = (count[i]/text.length);
+    }
+
+    // console.log(count);
+    this.count = count;
+}
+
+                function getTree(){
+    var arr = new Array();
+    for (let i in this.count){
+        let node = new Node(count[i], i);
+        arr.push(node);
+    }
+
+    var Nodes = new Array();
+
+    while(arr.length !== 1){
+       arr.sort(function(a,b) {
+           return a.value - b.value;
+       });
+       let node = new Node(arr[0].value + arr[1].value);
+       Nodes.push(arr[0]);
+       Nodes.push(arr[1]);
+       node.left = Nodes[Nodes.length -2];
+       node.right = Nodes[Nodes.length -1];
+       arr = arr.slice(2);
+       arr.push(node);
+    }
+    return arr[0];
+}
+                var arr = new Array();
+                var flag = 0;
+                    function Part4(encoded){
+var blockNum = (encoded.length/4).toFixed();
+
+if(encoded.length%4!= 0) blockNum = blockNum + 1;
+     var dataBits = "";
+     var newEncoded = new Array(blockNum);
+     var countOfDataBits=0;
+     var j=0;
+     for(let i = 0; i<encoded.length; i++){
+         dataBits +=encoded.charAt(i);
+         countOfDataBits++;
+         if(countOfDataBits == 4){
+             newEncoded[j] = dataBits;
+             j++;
+             countOfDataBits = 0;
+             dataBits = "";
+         }
+         else if(i == (encoded.length - 1) && countOfDataBits!= 4){
+             if(countOfDataBits==1){
+                 newEncoded[j] = dataBits + "000";
+                 flag = 3;
+             }
+             else if(countOfDataBits==2){
+                 newEncoded[j] = dataBits + "00";
+                 flag = 2;
+             }else if(countOfDataBits==3){
+                 newEncoded[j] = dataBits + "0";
+                 flag = 1;
+             }
+         }
+     }
+
+     for (let i=0 ; i < newEncoded.length;i++){
+         var dataElement = newEncoded[i];
+         let d1 = dataElement.charAt(0);
+         let d2 = dataElement.charAt(1);
+         let d3 = dataElement.charAt(2);
+         let d4 = dataElement.charAt(3);
+         
+         let p1 = d1^d2^d3;
+         let p2 = d2^d3^d4;
+         let p4 = d1^d2^d4;
+
+        dataElement = dataElement.substring(0, 1) + p4 + dataElement.substring(1, dataElement.length);
+        dataElement = dataElement.substring(0, 0) + p2 + dataElement.substring(0, dataElement.length);
+        dataElement = dataElement.substring(0, 0) + p1 + dataElement.substring(0, dataElement.length);
+
+        newEncoded[i] = dataElement;
+}
+
+    var output = "";
+    for(var i = 0 ; i<newEncoded.length; i++){
+        output += newEncoded[i];
+    }
+    arr = newEncoded;
+    return arr;
+}   
+function OutputFullText(arr){
+    var output = "";
+    for (var i = 0; i<arr.length; i++){
+        output+= arr[i];
+    }
+    return output;
+}
+function removeByIndex(str,index) {
+        return str.slice(0,index) + str.slice(index+1);
+  }
+
+function AddErrors(newEncoded){
+var result = "";
+for(let i = 0 ; i<newEncoded.length;i++){
+    let oneBlock = newEncoded[i];
+   const randomIndex = Math.floor(Math.random() * oneBlock.length);
+   const randomBit = oneBlock.charAt(randomIndex);
+   
+   if(randomBit == '1'){
+       oneBlock = oneBlock.substring(0,randomIndex) + '0' + oneBlock.substring(randomIndex+1);
+   }
+  else{
+     oneBlock = oneBlock.substring(0,randomIndex) + '1' + oneBlock.substring(randomIndex+1);
+   }
+     newEncoded[i] = oneBlock;
+
+     result+= newEncoded[i];
+}
+return newEncoded;
+}
+function Decode(encoded,root){
+    let current = root;
+    let output = '';
+    for (let i in encoded){
+        current = (encoded[i] == '0') ? current = current.left : current = current.right
+        if(!current.left && !current.right){
+           output+= current.char;
+           current = root;
+        }
+    }
+    return output;
+}
+
+function Part6(newEncoded){
+for(let i = 0; i<newEncoded.length;i++){
+    let oneBlock = newEncoded[i];
+    let p1 = oneBlock.charAt(0);
+    let p2 = oneBlock.charAt(1);
+    let d3 = oneBlock.charAt(2);
+    let p4 = oneBlock.charAt(3);
+    let d5 = oneBlock.charAt(4);
+    let d6 = oneBlock.charAt(5);
+    let d7 = oneBlock.charAt(6);
+
+    let s1 = p1^d3^d5^d6;
+    let s2 = p2^d5^d6^d7;
+    let s3 = p4^d3^d5^d7;
+
+    var syndrome = `${s1}${s2}${s3}`;
+    let errorIndex = '';
+    if (syndrome == '001'){
+       errorIndex = 3;
+    }
+    else if(syndrome == '010'){
+       errorIndex = 1;
+    }
+    else if(syndrome == '011'){
+       errorIndex = 6;
+    }
+    else if(syndrome == '100'){
+       errorIndex = 0;
+    }
+    else if(syndrome == '101'){
+       errorIndex = 2;
+    }
+    else if(syndrome == '110'){
+       errorIndex = 5;
+    }
+    else if(syndrome == '111'){
+       errorIndex = 4;
+    }
+    else{
+       errorIndex = -999;
+    }
+    var errorBit = oneBlock.charAt(errorIndex);
+
+    if(errorBit == '1'){
+        oneBlock = oneBlock.substring(0,errorIndex) + '0' + oneBlock.substring(errorIndex+1);
+    }
+   else{
+      oneBlock = oneBlock.substring(0,errorIndex) + '1' + oneBlock.substring(errorIndex+1);
+
+}
+newEncoded[i] = oneBlock;
+}
+
+var finalEncoded = new Array(newEncoded.length);
+var res = '';
+for (let i = 0; i<newEncoded.length;i++){
+    let oneBlock = newEncoded[i];
+    oneBlock = removeByIndex(oneBlock, 3);
+    oneBlock = removeByIndex(oneBlock, 1);
+    oneBlock = removeByIndex(oneBlock, 0);
+
+    finalEncoded[i] = oneBlock;
+
+if((i == newEncoded.length-1) && (flag == 2)){
+   finalEncoded[i] = removeByIndex(finalEncoded[i],2);
+   finalEncoded[i] = removeByIndex(finalEncoded[i],2);
+}
+else if((i == newEncoded.length-1) && (flag == 3)){
+    finalEncoded[i] = removeByIndex(finalEncoded[i],1);
+    finalEncoded[i] = removeByIndex(finalEncoded[i],1);
+    finalEncoded[i] = removeByIndex(finalEncoded[i],1);
+ }
+else if((i == newEncoded.length-1) && (flag == 1)){
+    finalEncoded[i] = removeByIndex(finalEncoded[i],3);
+ }
+    res+=finalEncoded[i];
+}
+return res;
+}
+      var arr_new = new Array();
+      function MyClickHamming() {
+            let encoded = document.querySelector('#encodingTextHamming').value;
+            console.log(encoded);
+            var parityEncoded = Part4(encoded);
+                        var secondParityEncoded = OutputFullText(parityEncoded);
+
+            document.getElementById("encodingTextOutputHamming").value = secondParityEncoded;
+            document.getElementById("encodingTextError").value = secondParityEncoded;
+            console.log(parityEncoded);
+            arr_new = parityEncoded;
+      }
+      var arr_new_second = new Array();
+        function HammingErrors(){
+            let encodedError = document.getElementById("encodingTextError").value;
+            var textErrors = AddErrors(arr_new);
+            var textErrorsOutput = OutputFullText(textErrors);
+            document.getElementById("decodingTextOutputErrors").value = textErrorsOutput;
+            document.getElementById("decodingText").value = textErrorsOutput;
+            console.log(encodedError);
+            arr_new_second = textErrors;
+        }
+        var textToPass = setItem
+        function HammingDecode(){
+         let decodeHamming = document.getElementById("decodingText").value;
+         document.getElementById("decodingTextOutputHamming").value = localStorage.getItem("textvalue");
+         var res = Part6(arr_new_second);
+         document.getElementById("decodingTextOutputHamming").value = res;
+        //  var decodingAfterHamming = Decode(res,getTree());
+        //  document.getElementById("decodingTextOutputHamming").value = decodingAfterHamming;
+        }
+       </script>
+            </form>
+        </div>
+        <div class="side-bar">
+            <h3 class="title-nav">Other Algorithms</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a class="link-compressor" href="index.html">Huffman Coding</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="link-compressor" href="des.html">Data Encryption Standard</a>
+                </li>
+            </ul>
+    </div>
+        </div>
+     <section>
+         <hr>
+       <div id="figure1">
+         <h4>Figure 1.</h4>
+         <img src="hamming-figure1.png" alt="hamming-figure1"  width="600px"  style="margin-left:50px;margin-bottom: 50px;">
+        </div>
+        <p class="info-figure">The communication system enables the successful transmission of idea or any other important information among individuals. The person from whom the thought originates carefully encodes his ideas into a sensible content which is now ready to be shared with everyone. He is commonly referred to as the sender and the other party who receives the information from him is called the receiver or the recipient. The free flow of information between the sender and the receiver takes place because of the communication system.</p>
+        <hr>
+        <div id="figure2">
+         <h4>Figure 2.</h4>
+         <img src="hamming-figure2.png" alt="hamming-figure2"  width="600px" style="margin-left:50px;margin-bottom: 50px;">
+        </div>
+        <p class="info-figure">In information theory and coding theory with applications in computer science and telecommunication error control are techniques that enable reliable delivery of digital data over unreliable communication channels. </p>
+        <hr>
+        <div id="figure3">
+            <h4>Figure 3.</h4>
+            <img src="hamming-figure3.png" alt="hamming-figure2" width="600px" height="350px" style="margin-left:50px;margin-bottom: 50px;">
+           </div>
+           <p class="info-figure">The general idea for achieving error detection and correction is to add some redundancy (i.e., some extra data) to a message, which receivers can use to check consistency of the delivered message, and to recover data determined to be corrupted.
+            With the simplest configuration: p=3, we get the most basic (7, 4) binary Hamming code. The (7,4) binary Hamming block encoder accepts blocks of 4-bit of information, adds 3 parity bits to each such block and produces 7-bits wide Hamming coded blocks.
+           </p>
+     </section>
+    <footer>
+
+    </footer>
+    </body>
+</html>
